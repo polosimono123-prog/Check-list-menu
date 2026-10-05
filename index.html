@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -34,7 +34,7 @@ h1 { font-size: 2.2rem; margin-bottom: 8px; }
 .action-btn.reset { background: #ed8936; color: white; }
 .action-btn.reset:hover { background: #dd6b20; }
 .meal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-.meal-card { background: #fff; border-radius: 16px; padding: 22px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-top: 5px solid #e2e8f0; }
+.meal-card { background: #fff; border-radius: 16px; padding: 22px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-top: 5px solid #e2e8f0; max-height: 500px; overflow-y: auto; }
 .meal-card.breakfast { border-top-color: #f6ad55; }
 .meal-card.lunch { border-top-color: #4fd1c5; }
 .meal-card.dinner { border-top-color: #63b3ed; }
@@ -183,18 +183,18 @@ footer { text-align: center; margin-top: 35px; color: #718096; font-size: 0.9rem
 <body>
 
 <header>
-  <h1>🥗 Меню на неделю</h1>
+  <h1>Меню на неделю</h1>
   <p class="subtitle">Планируй здоровое питание на каждый день</p>
   <div class="stats-container">
     <span class="progress-info" id="weekProgress">Выбрано за неделю: 0 блюд</span>
-    <button class="reset-btn" id="resetWeekBtn">🔄 Сбросить всю неделю</button>
+    <button class="reset-btn" id="resetWeekBtn">Сбросить всю неделю</button>
   </div>
 </header>
 
 <nav class="days-nav" id="daysNav"></nav>
 <div class="daily-summary-container" id="dailySummaryContainer"></div>
 <main id="daysContainer"></main>
-<footer><p>Питайся правильно и чувствуй себя отлично! 💚</p></footer>
+<footer><p>Питайся правильно и чувствуй себя отлично!</p></footer>
 
 <div class="fab-container">
   <button class="fab fab-recipe hidden" id="recipeFab" title="Рецепты"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"></path><line x1="6" y1="17" x2="18" y2="17"></line></svg><span class="badge" id="recipeBadge">0</span></button>
@@ -205,16 +205,16 @@ footer { text-align: center; margin-top: 35px; color: #718096; font-size: 0.9rem
 
 <div class="drawer" id="recipeDrawer">
   <div class="drawer-header recipe-header">
-    <h2 id="drawerTitle"> Рецепты</h2>
-    <button class="close-btn" id="closeRecipeDrawer">✕</button>
+    <h2 id="drawerTitle">Рецепты</h2>
+    <button class="close-btn" id="closeRecipeDrawer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
   </div>
   <div class="drawer-body" id="recipeDrawerBody"></div>
 </div>
 
 <div class="drawer" id="shopDrawer">
   <div class="drawer-header shop-header">
-    <h2 id="shopTitle">🛍️ Список покупок</h2>
-    <button class="close-btn" id="closeShopDrawer">✕</button>
+    <h2 id="shopTitle">Список покупок</h2>
+    <button class="close-btn" id="closeShopDrawer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
   </div>
   <div class="drawer-body" id="shopDrawerBody"></div>
 </div>
@@ -222,8 +222,8 @@ footer { text-align: center; margin-top: 35px; color: #718096; font-size: 0.9rem
 <div class="modal" id="addMealModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2 id="modalTitle">➕ Добавить блюдо</h2>
-      <button class="modal-close" id="closeModal">✕</button>
+      <h2 id="modalTitle">Добавить блюдо</h2>
+      <button class="modal-close" id="closeModal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
     </div>
     <form id="addMealForm">
       <div class="form-group">
@@ -280,9 +280,9 @@ const daysData = [
 ];
 
 const meals = {
-  breakfast: { title: '☀️ Завтрак', class: 'breakfast', items: ['Овсянка с ягодами и орехами','Омлет со шпинатом и томатами','Творог с фруктами и семенами чиа','Тост с авокадо и яйцом пашот','Греческий йогурт с медом и миндалем','Сырники с яблочным пюре','Гречневая каша с молоком','Смузи-боул с бананом и гранолой','Яйца пашот на цельнозерновом тосте','Пшенная каша с тыквой','Овсяноблин с творогом и зеленью','Фриттата с овощами и сыром'] },
-  lunch: { title: '🍲 Обед', class: 'lunch', items: ['Куриная грудка с киноа и свежим салатом','Запеченная рыба с бурым рисом и овощами','Чечевичный суп с цельнозерновым хлебом','Индейка с гречкой и тушеными овощами','Боул с тунцом, овощами и оливковым маслом','Паста из цельнозерновой муки с томатным соусом и курицей','Говядина тушеная с овощами','Фаршированные перцы с рисом и мясом','Куриный бульон с лапшой и зеленью','Салат Цезарь с куриной грудкой','Ризотто с грибами и пармезаном','Запеченный лосось с картофелем и спаржей'] },
-  dinner: { title: '🌙 Ужин', class: 'dinner', items: ['Салат с запеченным лососем и авокадо','Творожная запеканка без сахара','Куриное филе на пару с брокколи','Омлет с грибами и стручковой фасолью','Салат из морепродуктов с лимоном','Запеченные овощи с сыром фета','Тушеная капуста с курицей','Рыбные котлеты на пару с салатом','Кабачковые оладьи с йогуртовым соусом','Салат Нисуаз с тунцом','Фаршированные кабачки с индейкой','Легкий суп-пюре из тыквы с семечками'] }
+  breakfast: { title: 'Завтрак', class: 'breakfast', items: ['Овсянка с ягодами и орехами','Омлет со шпинатом и томатами','Творог с фруктами и семенами чиа','Тост с авокадо и яйцом пашот','Греческий йогурт с медом и миндалем','Сырники с яблочным пюре','Гречневая каша с молоком','Смузи-боул с бананом и гранолой','Яйца пашот на цельнозерновом тосте','Пшенная каша с тыквой','Овсяноблин с творогом и зеленью','Фриттата с овощами и сыром','Творожные бейглы в аэрогриле','Ватрушки','Блинчики с колбасой и сыром','Сырники','Овсяноблин с творогом и зеленью','Запеканка из творога и ягод','Овсянка с бананом и корицей','Омлет с овощами','Творог с ягодами и орехами','Смузи с овсянкой и ягодами','Тост с авокадо и яйцом','Йогурт с гранолой и фруктами','Яичные маффины','Банановые панкейки без муки','Чиа-пудинг','Ролл из лаваша с творогом и зеленью'] },
+  lunch: { title: 'Обед', class: 'lunch', items: ['Куриная грудка с киноа и свежим салатом','Запеченная рыба с бурым рисом и овощами','Чечевичный суп с цельнозерновым хлебом','Индейка с гречкой и тушеными овощами','Боул с тунцом, овощами и оливковым маслом','Паста из цельнозерновой муки с томатным соусом и курицей','Говядина тушеная с овощами','Фаршированные перцы с рисом и мясом','Куриный бульон с лапшой и зеленью','Салат Цезарь с куриной грудкой','Ризотто с грибами и пармезаном','Запеченный лосось с картофелем и спаржей','Гнёзда с шампиньонами в духовке','Котлеты жареные из свинины','Котлеты жареные из курицы','Тефтели в томатном соусе','Отбивные из курицы в кляре','Мякоть бедра запечённая с ананасами','Голени запечённые в аэрогриле','Запеканка (картофель, курица, сыр)','Куриная грудка в духовке с овощами','Тушёная индейка с овощами','Салат с тунцом и овощами','Гречка с курицей и грибами','Овощной суп-пюре','Куриные котлеты на пару'] },
+  dinner: { title: 'Ужин', class: 'dinner', items: ['Салат с запеченным лососем и авокадо','Творожная запеканка без сахара','Куриное филе на пару с брокколи','Омлет с грибами и стручковой фасолью','Салат из морепродуктов с лимоном','Запеченные овощи с сыром фета','Тушеная капуста с курицей','Рыбные котлеты на пару с салатом','Кабачковые оладьи с йогуртовым соусом','Салат Нисуаз с тунцом','Фаршированные кабачки с индейкой','Легкий суп-пюре из тыквы с семечками','Крабовый салат (без риса)','Оливье (облегчённый)','Тортилья из лаваша с курицей'] }
 };
 
 const recipes = {
@@ -298,6 +298,22 @@ const recipes = {
   'breakfast-9': { calories: 310, protein: 8, fat: 6, carbs: 58, ingredients: ['Пшено — 100 г','Тыква — 200 г','Молоко — 300 мл','Мед, корица — по вкусу'], steps: ['Тыкву очистить и нарезать кубиками.','Пшено промыть, залить молоком с тыквой.','Варить 25-30 минут до мягкости.','Добавить мед и корицу перед подачей.'] },
   'breakfast-10': { calories: 340, protein: 22, fat: 12, carbs: 34, ingredients: ['Овсяные хлопья — 60 г','Яйцо — 1 шт.','Молоко — 50 мл','Творог — 100 г','Зелень (укроп, петрушка) — пучок'], steps: ['Смешать овсянку, яйцо и молоко, дать постоять 5 минут.','Вылить на разогретую сковороду как блин.','Обжарить с двух сторон по 2 минуты.','Смазать творогом, посыпать зеленью, свернуть.'] },
   'breakfast-11': { calories: 380, protein: 24, fat: 22, carbs: 10, ingredients: ['Яйца — 3 шт.','Болгарский перец — 1/2 шт.','Помидор — 1 шт.','Сыр твердый — 50 г','Молоко — 50 мл'], steps: ['Разогреть духовку до 180°C.','Нарезать овощи кубиками, выложить в форму.','Взбить яйца с молоком, залить овощи.','Посыпать тертым сыром, запекать 15-20 минут.'] },
+  'breakfast-12': { calories: 278, protein: 18, fat: 8, carbs: 32, ingredients: ['Творог 5% — 400 г','Мука — 190 г','Яйца — 2 шт.','Соль — щепотка','Сода — 1/2 ч.л.'], steps: ['Творог пробейте блендером или протрите.','Добавьте яйца, соль, соду, перемешайте.','Введите муку, замесите мягкое тесто. Дайте отдохнуть 15 минут.','Разделите на 6-8 частей, скатайте шарики, сделайте отверстие, растяните в кольцо.','Разогрейте аэрогриль до 180°C.','Выложите бейглы на пергамент, выпекайте 15-20 минут до золотистой корочки.','Остудите на решётке.'] },
+  'breakfast-13': { calories: 203, protein: 10, fat: 6, carbs: 28, ingredients: ['Творог 5% — 600 г','Яйца — 2 шт','Сахар — 60 г (в тесто) + 30 г (посыпка)','Мука — 200 г','Греческий йогурт — 250 г','Сметана — 30 г'], steps: ['Смешайте творог, яйца, сахар (60 г), йогурт и сметану до однородности.','Постепенно добавьте муку, замесите мягкое тесто.','Мокрыми руками сформируйте ватрушки, выложите на противень с пергаментом.','Посыпьте сахаром (30 г).','Выпекайте при 180°C около 25-30 минут до золотистого цвета.'] },
+  'breakfast-14': { calories: 405, protein: 18, fat: 22, carbs: 33, ingredients: ['Мука — 200 г','Молоко — 500 мл','Яйца — 2 шт.','Сахар — 1 ч.л.','Соль — щепотка','Масло растительное — 1 ст.л.','Колбаса варёная — 300 г','Сыр твёрдый — 200 г','Майонез — 50 г'], steps: ['Взбить яйца с молоком, солью и сахаром.','Постепенно добавить муку, перемешать до однородности, влить масло.','Жарить тонкие блины на разогретой сковороде с двух сторон.','Колбасу и сыр натереть на крупной тёрке, смешать с майонезом.','На каждый блин выложить начинку, свернуть конвертиком или рулетом.','Обжарить на сухой сковороде по 1-2 минуты с каждой стороны до расплавления сыра.'] },
+  'breakfast-15': { calories: 300, protein: 14, fat: 7, carbs: 22, ingredients: ['Творог — 500 г (5-9%)','Яйцо — 1 шт.','Мука — 60 г + для обвалки','Сахар — 30 г','Соль — щепотка','Ванилин — по желанию','Масло растительное — для жарки'], steps: ['Творог размять с яйцом, сахаром, солью и ванилином.','Добавить муку, вымешать до однородной массы.','Сформировать шайбочки, обвалять в муке.','Жарить на разогретом масле по 2-3 минуты с каждой стороны до золотистой корочки.','Подавать со сметаной, мёдом или вареньем.'] },
+  'breakfast-16': { calories: 280, protein: 12, fat: 5, carbs: 12, ingredients: ['Овсяные хлопья — 40 г','Яйцо — 1 шт.','Молоко — 50 мл','Творог 5% — 100 г','Зелень, соль, перец'], steps: ['Хлопья измельчить, смешать с яйцом и молоком.','Вылить на антипригарную сковороду, жарить под крышкой 2-3 минуты с каждой стороны.','Творог смешать с зеленью, посолить.','Выложить начинку на блин, сложить пополам.'] },
+  'breakfast-17': { calories: 300, protein: 11, fat: 4, carbs: 10, ingredients: ['Творог 5% — 400 г','Яйца — 2 шт.','Овсяные хлопья — 40 г','Ягоды — 200 г','Мёд — 1 ст.л.','Корица'], steps: ['Творог смешать с яйцами, хлопьями, мёдом и корицей.','Выложить в форму, сверху ягоды.','Запекать при 180°C 30-35 минут.'] },
+  'breakfast-18': { calories: 285, protein: 3, fat: 2, carbs: 17, ingredients: ['Овсяные хлопья — 50 г','Молоко (или вода) — 200 мл','Банан — 1 шт.','Корица — щепотка','Мёд — 1 ч.л.'], steps: ['Хлопья залить молоком, довести до кипения, варить 3-4 минуты.','Банан нарезать кружками.','Добавить в кашу банан, корицу и мёд.'] },
+  'breakfast-19': { calories: 275, protein: 8, fat: 7, carbs: 4, ingredients: ['Яйца — 2 шт.','Помидор — 1 шт.','Болгарский перец — 1/2 шт.','Шпинат — горсть','Оливковое масло — 1 ч.л.','Соль, перец'], steps: ['Овощи нарезать, обжарить 2 минуты на масле.','Залить взбитыми яйцами, посолить.','Готовить под крышкой 3-4 минуты.'] },
+  'breakfast-20': { calories: 312, protein: 12, fat: 5, carbs: 8, ingredients: ['Творог 5% — 150 г','Ягоды — 100 г','Грецкие орехи — 10 г','Мёд — 1 ч.л.','Корица'], steps: ['Творог выложить в миску.','Добавить ягоды, измельчённые орехи, мёд и корицу.','Перемешать.'] },
+  'breakfast-21': { calories: 264, protein: 3, fat: 2, carbs: 14, ingredients: ['Овсяные хлопья — 30 г','Банан — 1 шт.','Ягоды — 100 г','Кефир (или йогурт) — 200 мл','Мёд — 1 ч.л.'], steps: ['Все ингредиенты сложить в блендер.','Взбить до однородности 1-2 минуты.','Подавать сразу.'] },
+  'breakfast-22': { calories: 360, protein: 8, fat: 12, carbs: 12, ingredients: ['Цельнозерновой хлеб — 1 ломтик','Авокадо — 1/2 шт.','Яйцо — 1 шт.','Лимонный сок — несколько капель','Соль, перец, чили'], steps: ['Хлеб подсушить в тостере.','Авокадо размять с лимонным соком, солью и перцем.','Яйцо отварить (5-6 минут) или пожарить без масла.','Намазать авокадо на тост, сверху яйцо.'] },
+  'breakfast-23': { calories: 253, protein: 6, fat: 4, carbs: 14, ingredients: ['Греческий йогурт — 150 г','Гранола (без сахара) — 30 г','Яблоко или груша — 1 шт.','Корица'], steps: ['Йогурт выложить в миску.','Фрукты нарезать кубиками.','Добавить гранолу, фрукты и корицу.'] },
+  'breakfast-24': { calories: 180, protein: 10, fat: 8, carbs: 2, ingredients: ['Яйца — 6 шт.','Молоко — 50 мл','Шпинат — 100 г','Помидоры черри — 100 г','Сыр твёрдый — 50 г','Соль, перец'], steps: ['Яйца взбить с молоком, солью и перцем.','Шпинат и черри нарезать, разложить по формочкам.','Залить яичной смесью, посыпать сыром.','Запекать при 180°C 15-20 минут.','Хранить в холодильнике до 3 дней, разогревать 30 секунд.'] },
+  'breakfast-25': { calories: 280, protein: 7, fat: 5, carbs: 17, ingredients: ['Банан — 1 шт.','Яйца — 2 шт.','Овсяные хлопья — 30 г','Корица — щепотка','Масло кокосовое — 1/2 ч.л.'], steps: ['Все ингредиенты взбить в блендере.','Жарить на антипригарной сковороде по 1-2 минуты с каждой стороны.','Подавать с ягодами или йогуртом.'] },
+  'breakfast-26': { calories: 180, protein: 4, fat: 4, carbs: 9, ingredients: ['Семена чиа — 2 ст.л.','Молоко (или растительное) — 150 мл','Мёд — 1 ч.л.','Ягоды, фрукты — для подачи'], steps: ['Смешать чиа с молоком и мёдом.','Оставить в холодильнике на ночь.','Утром добавить ягоды и фрукты.'] },
+  'breakfast-27': { calories: 260, protein: 9, fat: 3, carbs: 17, ingredients: ['Тонкий лаваш — 1 лист','Творог 5% — 100 г','Зелень (укроп, петрушка) — горсть','Огурец — 1/2 шт.','Соль, перец'], steps: ['Творог смешать с нарезанной зеленью, солью и перцем.','Намазать на лаваш, выложить полоски огурца.','Свернуть рулетом.'] },
   'lunch-0': { calories: 480, protein: 42, fat: 14, carbs: 42, ingredients: ['Куриная грудка — 200 г','Киноа — 80 г','Огурец, помидор — по 1 шт.','Оливковое масло — 1 ст.л.','Лимонный сок, соль, перец'], steps: ['Отварить киноа 15 минут.','Куриную грудку посолить, запечь в духовке 20 минут при 200°C.','Нарезать овощи для салата.','Смешать киноа, нарезанную курицу и салат, заправить маслом и лимоном.'] },
   'lunch-1': { calories: 450, protein: 35, fat: 10, carbs: 55, ingredients: ['Филе белой рыбы (треска) — 200 г','Бурый рис — 80 г','Брокколи, морковь — по 100 г','Лимон, оливковое масло'], steps: ['Отварить бурый рис 25-30 минут.','Рыбу сбрызнуть лимоном, посолить, запечь 15 минут при 200°C.','Овощи приготовить на пару 7-10 минут.','Подать все вместе, сбрызнуть маслом.'] },
   'lunch-2': { calories: 380, protein: 18, fat: 6, carbs: 62, ingredients: ['Чечевица красная — 150 г','Морковь, лук — по 1 шт.','Картофель — 2 шт.','Цельнозерновой хлеб — 2 ломтика','Лавровый лист, соль'], steps: ['Обжарить лук и морковь.','Добавить промытую чечевицу, залить 1 л воды.','Добавить нарезанный картофель и лавровый лист.','Варить 20 минут. Подавать с хлебом.'] },
@@ -310,6 +326,20 @@ const recipes = {
   'lunch-9': { calories: 420, protein: 38, fat: 22, carbs: 12, ingredients: ['Куриная грудка — 200 г','Салат романо — 100 г','Помидоры черри — 6 шт.','Сыр пармезан — 30 г','Соус: йогурт + горчица + лимон'], steps: ['Куриную грудку обжарить до готовности, нарезать.','Порвать салат руками, выложить на тарелку.','Добавить черри и курицу.','Посыпать пармезаном, полить соусом.'] },
   'lunch-10': { calories: 520, protein: 16, fat: 18, carbs: 72, ingredients: ['Рис арборио — 150 г','Шампиньоны — 150 г','Лук — 1 шт.','Пармезан — 50 г','Белое вино — 50 мл','Бульон — 500 мл'], steps: ['Обжарить лук и грибы.','Добавить рис, влить вино, выпарить.','Постепенно добавлять горячий бульон, помешивая, 18 минут.','В конце добавить пармезан, перемешать.'] },
   'lunch-11': { calories: 550, protein: 32, fat: 22, carbs: 52, ingredients: ['Филе лосося — 200 г','Картофель — 300 г','Спаржа — 100 г','Оливковое масло, лимон, розмарин'], steps: ['Разогреть духовку до 200°C.','Картофель нарезать дольками, сбрызнуть маслом.','Выложить картофель и спаржу на противень, сверху рыбу.','Запекать 20 минут, сбрызнуть лимоном.'] },
+  'lunch-12': { calories: 690, protein: 13, fat: 17, carbs: 4, ingredients: ['Фарш — 500 г','Шампиньоны — 300 г','Лук — 1 шт.','Яйцо — 1 шт.','Сыр твёрдый — 150 г','Сметана — 50 г','Масло растительное — 1 ст.л.','Соль, перец, специи, зелень'], steps: ['Лук мелко нарезать, половину обжарить с нарезанными шампиньонами до испарения влаги, посолить.','В фарш добавить вторую половину лука, яйцо, соль, перец, специи. Вымешать.','Сформировать из фарша гнёзда (лепёшки с бортиками), выложить на противень, застеленный пергаментом.','В каждое гнездо выложить начинку из грибов.','Сверху смазать сметаной и посыпать тёртым сыром.','Запекать при 180°C 25-30 минут до румяной корочки.','Посыпать зеленью перед подачей.'] },
+  'lunch-13': { calories: 580, protein: 12, fat: 22, carbs: 10, ingredients: ['Свиной фарш — 500 г','Лук — 1 шт.','Яйцо — 1 шт.','Хлеб размоченный — 100 г','Мука для обвалки — 50 г','Масло растительное — 50 г'], steps: ['Фарш смешать с луком, яйцом и размоченным хлебом.','Сформировать котлеты, обвалять в муке.','Жарить на разогретом масле по 4-5 минут с каждой стороны до готовности.'] },
+  'lunch-14': { calories: 420, protein: 15, fat: 12, carbs: 10, ingredients: ['Куриный фарш — 500 г','Лук — 1 шт.','Яйцо — 1 шт.','Хлеб размоченный — 100 г','Мука для обвалки — 50 г','Масло растительное — 50 г'], steps: ['Фарш смешать с луком, яйцом и размоченным хлебом.','Сформировать котлеты, обвалять в муке.','Жарить на разогретом масле по 4-5 минут с каждой стороны до готовности.'] },
+  'lunch-15': { calories: 540, protein: 10, fat: 11, carbs: 9, ingredients: ['Фарш (свинина+говядина) — 500 г','Рис отварной — 150 г','Лук — 1 шт.','Яйцо — 1 шт.','Чеснок — 2 зубчика','Томатная паста — 2 ст.л.','Вода/бульон — 400 мл','Мука — 1 ст.л.','Сметана — 2 ст.л.','Масло растительное — для жарки'], steps: ['Лук и чеснок мелко нарезать, смешать с фаршем, рисом, яйцом, солью и специями.','Сформировать шарики, обвалять в муке, обжарить до золотистой корочки.','Для соуса: обжарить томатную пасту, добавить воду, сметану, соль, специи, довести до кипения.','Залить тефтели соусом, тушить под крышкой 20-25 минут на медленном огне.','Посыпать зеленью перед подачей.'] },
+  'lunch-16': { calories: 500, protein: 18, fat: 13, carbs: 14, ingredients: ['Куриное филе — 500 г','Яйцо — 2 шт.','Молоко — 100 мл','Мука — 100-120 г','Соль, перец, специи','Масло растительное — 80 г'], steps: ['Филе нарезать пластами, отбить, посолить, поперчить.','Для кляра: взбить яйца с молоком, солью, постепенно добавить муку до консистенции жидкой сметаны.','Обмакнуть каждую отбивную в кляр.','Жарить на разогретом масле по 3-4 минуты с каждой стороны до золотистой корочки.','Выложить на бумажное полотенце, чтобы убрать лишнее масло.'] },
+  'lunch-17': { calories: 555, protein: 14, fat: 11, carbs: 7, ingredients: ['Мякоть куриного бедра — 700 г','Ананасы консервированные — 1 банка (~400 г)','Сыр твёрдый — 150 г','Майонез (или сметана) — 100 г','Чеснок — 2 зубчика','Соль, перец, специи'], steps: ['Мякоть бедра нарезать кусками, посолить, поперчить, добавить специи и измельчённый чеснок.','Выложить курицу в форму, сверху ананасы (без жидкости).','Смазать майонезом/сметаной, посыпать тёртым сыром.','Запекать при 180°C 35-40 минут до румяной корочки.','Дать настояться 5-10 минут перед подачей.'] },
+  'lunch-18': { calories: 462, protein: 20, fat: 10, carbs: 4, ingredients: ['Куриные голени — 800 г','Чеснок — 3 зубчика','Кетчуп — 2 ст.л.','Масло растительное — 1 ст.л.','Паприка — 1 ч.л.','Соль, перец, специи'], steps: ['Голени вымыть, обсушить.','Смешать кетчуп, масло, измельчённый чеснок, паприку, соль, перец и специи.','Обмазать голени маринадом, оставить на 30-60 минут.','Выложить в корзину аэрогриля в один слой.','Готовить при 190°C 25-30 минут, перевернуть на середине.','Дать настояться 5 минут перед подачей.'] },
+  'lunch-19': { calories: 630, protein: 12, fat: 13, carbs: 13, ingredients: ['Картофель — 800 г','Куриное филе — 500 г','Сыр твёрдый — 200 г','Майонез — 150 г','Лук — 1 шт.','Чеснок — 2 зубчика','Соль, перец, специи'], steps: ['Картофель очистить, нарезать тонкими кружками.','Курицу нарезать кусочками, посолить, поперчить, добавить специи.','Лук нарезать кольцами.','Выложить слоями в форму: картофель, курица, лук, картофель.','Смазать майонезом, посыпать тёртым сыром.','Запекать при 180°C 45-50 минут до мягкости картофеля и румяной корочки.','Дать настояться 10 минут перед подачей.'] },
+  'lunch-20': { calories: 385, protein: 15, fat: 4, carbs: 4, ingredients: ['Куриная грудка — 500 г','Брокколи — 200 г','Помидоры черри — 150 г','Болгарский перец — 1 шт.','Оливковое масло — 1 ст.л.','Чеснок — 2 зубчика','Соль, перец, паприка, розмарин'], steps: ['Грудку нарезать кусочками, посолить, поперчить, добавить специи и чеснок.','Овощи нарезать, смешать с маслом и специями.','Выложить курицу и овощи на противень в один слой.','Запекать при 190°C 25-30 минут.'] },
+  'lunch-21': { calories: 315, protein: 13, fat: 3, carbs: 6, ingredients: ['Филе индейки — 500 г','Кабачок — 1 шт.','Морковь — 1 шт.','Лук — 1 шт.','Томаты — 2 шт.','Чеснок — 2 зубчика','Оливковое масло — 1 ст.л.','Соль, перец, специи'], steps: ['Индейку нарезать кубиками, обжарить 5 минут.','Добавить нарезанные овощи, перемешать.','Влить 100 мл воды, тушить под крышкой 20-25 минут.','Добавить чеснок и специи за 5 минут до готовности.'] },
+  'lunch-22': { calories: 315, protein: 10, fat: 4, carbs: 4, ingredients: ['Тунец в собственном соку — 1 банка','Листья салата — 100 г','Огурец — 1 шт.','Помидор — 1 шт.','Болгарский перец — 1 шт.','Оливковое масло — 1 ст.л.','Лимонный сок, соль, перец'], steps: ['Овощи нарезать, листья порвать.','Тунец размять вилкой.','Смешать всё, заправить маслом и лимонным соком.'] },
+  'lunch-23': { calories: 455, protein: 11, fat: 3, carbs: 14, ingredients: ['Гречка — 150 г (сухая)','Куриная грудка — 400 г','Шампиньоны — 200 г','Лук — 1 шт.','Оливковое масло — 1 ст.л.','Соль, перец, специи'], steps: ['Гречку отварить.','Курицу нарезать, обжарить с луком.','Добавить грибы, тушить 10 минут.','Смешать с гречкой, прогреть 2-3 минуты.'] },
+  'lunch-24': { calories: 240, protein: 1, fat: 2, carbs: 10, ingredients: ['Тыква — 300 г','Морковь — 1 шт.','Картофель — 2 шт.','Лук — 1 шт.','Чеснок — 1 зубчик','Оливковое масло — 1 ст.л.','Соль, перец, куркума'], steps: ['Овощи нарезать, залить водой (500 мл), варить 20 минут.','Пробить блендером, добавить масло и специи.','Прогреть 2-3 минуты.'] },
+  'lunch-25': { calories: 260, protein: 16, fat: 5, carbs: 5, ingredients: ['Куриный фарш — 500 г','Яйцо — 1 шт.','Овсяные хлопья — 40 г','Лук — 1 шт.','Соль, перец, зелень'], steps: ['Хлопья залить кипятком на 5 минут, остудить.','Смешать с фаршем, яйцом, луком и специями.','Сформировать котлеты, готовить в пароварке 25-30 минут.'] },
   'dinner-0': { calories: 380, protein: 28, fat: 24, carbs: 8, ingredients: ['Филе лосося — 150 г','Авокадо — 1/2 шт.','Микс салата — 100 г','Огурец — 1 шт.','Оливковое масло, лимон'], steps: ['Лосось посолить, запечь 12 минут при 200°C.','Выложить салат и нарезанный огурец.','Сверху — ломтики авокадо и теплый лосось.','Заправить маслом и лимонным соком.'] },
   'dinner-1': { calories: 320, protein: 32, fat: 10, carbs: 28, ingredients: ['Творог 5% — 400 г','Яйцо — 1 шт.','Манка — 2 ст.л.','Изюм — 30 г','Ванилин'], steps: ['Смешать творог, яйцо, манку и ванилин.','Добавить промытый изюм.','Выложить в форму, разровнять.','Запекать 30-35 минут при 180°C до золотистой корочки.'] },
   'dinner-2': { calories: 340, protein: 42, fat: 8, carbs: 16, ingredients: ['Куриное филе — 200 г','Брокколи — 200 г','Соевый соус — 1 ст.л.','Чеснок — 1 зубчик','Имбирь — 1 ч.л.'], steps: ['Курицу нарезать, замариновать в соевом соусе с чесноком.','Брокколи разобрать на соцветия.','Готовить на пару 15 минут.','Подавать курицу с брокколи, сбрызнуть соком.'] },
@@ -321,7 +351,10 @@ const recipes = {
   'dinner-8': { calories: 290, protein: 12, fat: 14, carbs: 32, ingredients: ['Кабачок — 1 шт.','Яйцо — 1 шт.','Мука — 2 ст.л.','Йогурт натуральный — 100 г','Чеснок, укроп'], steps: ['Кабачок натереть, отжать сок.','Смешать с яйцом и мукой.','Жарить оладьи по 2 минуты с каждой стороны.','Смешать йогурт с чесноком и укропом — соус готов.'] },
   'dinner-9': { calories: 380, protein: 28, fat: 22, carbs: 16, ingredients: ['Тунец консервированный — 1 банка','Картофель — 2 шт.','Яйцо — 2 шт.','Стручковая фасоль — 100 г','Оливки, оливковое масло'], steps: ['Отварить картофель и яйца.','Отварить фасоль 5 минут.','Выложить все на салатные листья.','Добавить тунец и оливки, заправить маслом.'] },
   'dinner-10': { calories: 420, protein: 32, fat: 18, carbs: 28, ingredients: ['Кабачки — 2 шт.','Фарш индейки — 300 г','Рис — 50 г','Лук, морковь — по 1 шт.','Томатный соус'], steps: ['Кабачки разрезать пополам, вынуть мякоть.','Смешать фарш с рисом и нарезанными овощами.','Нафаршировать кабачки.','Запекать 35 минут при 180°C под томатным соусом.'] },
-  'dinner-11': { calories: 220, protein: 6, fat: 8, carbs: 32, ingredients: ['Тыква — 400 г','Морковь — 1 шт.','Лук — 1 шт.','Овощной бульон — 500 мл','Тыквенные семечки — 20 г'], steps: ['Нарезать тыкву и морковь кубиками.','Обжарить лук, добавить овощи и бульон.','Варить 20 минут до мягкости.','Пробить блендером, посыпать семечками.'] }
+  'dinner-11': { calories: 220, protein: 6, fat: 8, carbs: 32, ingredients: ['Тыква — 400 г','Морковь — 1 шт.','Лук — 1 шт.','Овощной бульон — 500 мл','Тыквенные семечки — 20 г'], steps: ['Нарезать тыкву и морковь кубиками.','Обжарить лук, добавить овощи и бульон.','Варить 20 минут до мягкости.','Пробить блендером, посыпать семечками.'] },
+  'dinner-12': { calories: 362, protein: 5, fat: 8, carbs: 12, ingredients: ['Крабовые палочки — 200 г','Яйца — 3 шт.','Огурец свежий — 200 г','Кукуруза консервированная — 1 банка','Майонез — 100 г','Соль, зелень'], steps: ['Яйца отварить, нарезать кубиками.','Крабовые палочки и огурец нарезать кубиками.','Смешать все ингредиенты с кукурузой.','Заправить майонезом, посолить, посыпать зеленью.'] },
+  'dinner-13': { calories: 400, protein: 7, fat: 11, carbs: 7, ingredients: ['Яйца — 4 шт.','Колбаса варёная — 300 г','Огурцы свежие — 250 г','Кукуруза консервированная — 1 банка','Майонез — 120 г','Соль, зелень'], steps: ['Яйца отварить, нарезать кубиками.','Колбасу и огурцы нарезать кубиками.','Смешать все ингредиенты с кукурузой.','Заправить майонезом, посолить, посыпать зеленью.'] },
+  'dinner-14': { calories: 537, protein: 13, fat: 10, carbs: 18, ingredients: ['Лаваш тонкий — 2-3 листа (~300 г)','Куриный фарш — 500 г','Кетчуп — 3-4 ст.л.','Помидоры — 2-3 шт.','Сыр твёрдый — 150 г','Соль, перец, специи','Масло растительное — 30 г'], steps: ['Фарш обжарить до готовности, посолить, поперчить, добавить специи.','Ввести кетчуп, перемешать, тушить 2-3 минуты.','Помидоры нарезать кружками или кубиками.','Лаваш разрезать на прямоугольники, выложить фарш, помидоры, при желании сыр.','Сложить конвертиком или рулетом.','Обжарить на сухой сковороде или с минимальным маслом по 2-3 минуты с каждой стороны.'] }
 };
 
 const DAILY_NORM = 1800;
@@ -369,13 +402,13 @@ function renderDays() {
     const dayContent = document.createElement('div');
     dayContent.className = 'day-content' + (index === 0 ? ' active' : '');
     dayContent.id = 'day-' + day.id;
-    let html = '<div class="day-header"><h2>' + day.name + '</h2><div class="day-actions"><button class="action-btn add" data-day="' + day.id + '">➕ Добавить блюдо</button><button class="action-btn delete" data-day="' + day.id + '"> Удалить блюдо</button><button class="action-btn reset" data-day="' + day.id + '">🗑 Сбросить день</button></div></div>';
+    let html = '<div class="day-header"><h2>' + day.name + '</h2><div class="day-actions"><button class="action-btn add" data-day="' + day.id + '">Добавить блюдо</button><button class="action-btn delete" data-day="' + day.id + '">Удалить блюдо</button><button class="action-btn reset" data-day="' + day.id + '">Сбросить день</button></div></div>';
     html += '<div class="meal-grid">';
     ['breakfast', 'lunch', 'dinner'].forEach(mealKey => {
       const meal = meals[mealKey];
       const customItems = customMeals[mealKey] || [];
       html += '<section class="meal-card ' + meal.class + '"><h3>' + meal.title + '</h3>';
-      html += '<div class="delete-mode-label" id="delete-label-' + day.id + '-' + mealKey + '">⚠️ Выберите блюда для удаления</div>';
+      html += '<div class="delete-mode-label" id="delete-label-' + day.id + '-' + mealKey + '">Выберите блюда для удаления</div>';
       html += '<ul class="meal-list">';
       meal.items.forEach((item, idx) => {
         const builtinKey = mealKey + '-' + idx;
@@ -386,7 +419,7 @@ function renderDays() {
       customItems.forEach((item, idx) => {
         const globalIdx = meal.items.length + idx;
         const isChecked = savedState[day.id] && savedState[day.id][mealKey] && savedState[day.id][mealKey][globalIdx] ? 'checked' : '';
-        html += '<li class="meal-item"><div class="meal-item-row"><label><input type="checkbox" class="custom-check" data-day="' + day.id + '" data-meal="' + mealKey + '" data-idx="' + globalIdx + '" ' + isChecked + '><span>' + item.name + ' ⭐</span></label><button class="edit-btn" data-mealKey="' + mealKey + '" data-idx="' + idx + '" data-type="custom" title="Редактировать"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button></div></li>';
+        html += '<li class="meal-item"><div class="meal-item-row"><label><input type="checkbox" class="custom-check" data-day="' + day.id + '" data-meal="' + mealKey + '" data-idx="' + globalIdx + '" ' + isChecked + '><span>' + item.name + '</span></label><button class="edit-btn" data-mealKey="' + mealKey + '" data-idx="' + idx + '" data-type="custom" title="Редактировать"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button></div></li>';
       });
       html += '</ul></section>';
     });
@@ -435,7 +468,7 @@ function attachEventListeners() {
     btn.addEventListener('click', () => {
       deleteMode = !deleteMode;
       btn.classList.toggle('active', deleteMode);
-      btn.textContent = deleteMode ? '✓ Подтвердить удаление' : '🗑 Удалить блюдо';
+      btn.textContent = deleteMode ? 'Подтвердить удаление' : 'Удалить блюдо';
       document.querySelectorAll('.day-content').forEach(dc => dc.classList.toggle('delete-mode', deleteMode));
       document.querySelectorAll('.delete-mode-label').forEach(lbl => lbl.classList.toggle('show', deleteMode));
       if (!deleteMode) {
@@ -474,7 +507,7 @@ document.addEventListener('click', (e) => {
         localStorage.setItem(HIDDEN_BUILTIN_KEY, JSON.stringify(Array.from(hiddenBuiltIn)));
         deleteMode = false;
         deleteSelections = { breakfast: new Set(), lunch: new Set(), dinner: new Set() };
-        document.querySelectorAll('.action-btn.delete').forEach(btn => { btn.classList.remove('active'); btn.textContent = '🗑 Удалить блюдо'; });
+        document.querySelectorAll('.action-btn.delete').forEach(btn => { btn.classList.remove('active'); btn.textContent = 'Удалить блюдо'; });
         document.querySelectorAll('.day-content').forEach(dc => dc.classList.remove('delete-mode'));
         document.querySelectorAll('.delete-mode-label').forEach(lbl => lbl.classList.remove('show'));
         renderDays();
@@ -623,8 +656,8 @@ function updateDailySummary() {
   });
   let level = 'low', levelText = 'Легкий день', barColor = '#ed8936';
   const percent = Math.min((totalCalories / DAILY_NORM) * 100, 100);
-  if (totalCalories >= DAILY_NORM * 0.9 && totalCalories <= DAILY_NORM * 1.1) { level = 'medium'; levelText = '✓ В пределах нормы'; barColor = '#48bb78'; }
-  else if (totalCalories > DAILY_NORM * 1.1) { level = 'high'; levelText = '⚠ Превышена норма'; barColor = '#e53e3e'; }
+  if (totalCalories >= DAILY_NORM * 0.9 && totalCalories <= DAILY_NORM * 1.1) { level = 'medium'; levelText = 'В пределах нормы'; barColor = '#48bb78'; }
+  else if (totalCalories > DAILY_NORM * 1.1) { level = 'high'; levelText = 'Превышена норма'; barColor = '#e53e3e'; }
   let html = '<div class="daily-summary">';
   html += '<div class="ds-label">Итого за ' + dayName + '</div>';
   html += '<div class="ds-value ' + level + '">' + totalCalories + ' ккал</div>';
@@ -641,31 +674,31 @@ function updateDailySummary() {
 function openRecipeDrawer() {
   const selected = getSelectedForDay(currentDay);
   const dayName = daysData.find(d => d.id === currentDay).name;
-  drawerTitle.textContent = '🍳 Рецепты: ' + dayName;
+  drawerTitle.textContent = 'Рецепты: ' + dayName;
   let html = '';
   if (selected.length === 0) {
-    html = '<div class="empty-state"><div class="icon">🍽️</div><p>Выбери хотя бы одно блюдо, чтобы увидеть рецепт</p></div>';
+    html = '<div class="empty-state"><div class="icon"></div><p>Выбери хотя бы одно блюдо, чтобы увидеть рецепт</p></div>';
   } else {
     const mealTypeNames = { breakfast: 'Завтрак', lunch: 'Обед', dinner: 'Ужин' };
     selected.forEach(item => {
       const recipe = getRecipeData(item);
       html += '<div class="recipe-card">';
       html += '<span class="meal-type ' + item.mealKey + '">' + mealTypeNames[item.mealKey] + '</span>';
-      html += '<span class="kcal-tag">🔥 ' + recipe.calories + ' ккал</span>';
+      html += '<span class="kcal-tag">' + recipe.calories + ' ккал</span>';
       html += '<div style="clear:both;"></div>';
-      html += '<h4>' + item.name + (item.isCustom ? ' ⭐' : '') + '</h4>';
+      html += '<h4>' + item.name + (item.isCustom ? '' : '') + '</h4>';
       html += '<div class="recipe-macros">';
       html += '<span class="macro-tag protein">Б: ' + recipe.protein + 'г</span>';
       html += '<span class="macro-tag fat">Ж: ' + recipe.fat + 'г</span>';
       html += '<span class="macro-tag carbs">У: ' + recipe.carbs + 'г</span>';
       html += '</div>';
       if (recipe.ingredients && recipe.ingredients.length) {
-        html += '<div class="recipe-section"><div class="recipe-section-title">🛒 Ингредиенты</div><ul>';
+        html += '<div class="recipe-section"><div class="recipe-section-title">Ингредиенты</div><ul>';
         recipe.ingredients.forEach(ing => { html += '<li>' + ing + '</li>'; });
         html += '</ul></div>';
       }
       if (recipe.steps && recipe.steps.length) {
-        html += '<div class="recipe-section"><div class="recipe-section-title">👨‍ Приготовление</div><ol>';
+        html += '<div class="recipe-section"><div class="recipe-section-title">Приготовление</div><ol>';
         recipe.steps.forEach(step => { html += '<li>' + step + '</li>'; });
         html += '</ol></div>';
       }
@@ -680,10 +713,10 @@ function openRecipeDrawer() {
 function openShopDrawer() {
   const products = getMergedProductsForDay(currentDay);
   const dayName = daysData.find(d => d.id === currentDay).name;
-  shopTitle.textContent = '🛍️ Список покупок: ' + dayName;
+  shopTitle.textContent = 'Список покупок: ' + dayName;
   let html = '';
   if (products.length === 0) {
-    html = '<div class="empty-state"><div class="icon">🛍️</div><p>Выбери блюда, чтобы сформировать список покупок</p></div>';
+    html = '<div class="empty-state"><div class="icon"></div><p>Выбери блюда, чтобы сформировать список покупок</p></div>';
   } else {
     if (!shopBought[currentDay]) shopBought[currentDay] = {};
     const boughtMap = shopBought[currentDay];
@@ -703,8 +736,8 @@ function openShopDrawer() {
       html += '</div>';
     });
     html += '<div class="shop-actions">';
-    html += '<button class="shop-btn copy" id="copyShopList">📋 Скопировать список</button>';
-    html += '<button class="shop-btn clear" id="clearBought">🔄 Сбросить отметки</button>';
+    html += '<button class="shop-btn copy" id="copyShopList">Скопировать список</button>';
+    html += '<button class="shop-btn clear" id="clearBought">Сбросить отметки</button>';
     html += '</div>';
   }
   shopDrawerBody.innerHTML = html;
@@ -722,8 +755,8 @@ function openShopDrawer() {
     copyBtn.addEventListener('click', () => {
       const text = products.map(p => '• ' + p.text).join('\n');
       navigator.clipboard.writeText('Список покупок на ' + dayName + ':\n\n' + text).then(() => {
-        copyBtn.textContent = '✓ Скопировано!';
-        setTimeout(() => { copyBtn.textContent = '📋 Скопировать список'; }, 2000);
+        copyBtn.textContent = 'Скопировано!';
+        setTimeout(() => { copyBtn.textContent = 'Скопировать список'; }, 2000);
       }).catch(() => { alert('Не удалось скопировать'); });
     });
   }
@@ -788,7 +821,7 @@ addMealModal.addEventListener('click', (e) => { if (e.target === addMealModal) c
 
 function openAddModal() {
   editMode = null;
-  modalTitle.textContent = ' Добавить блюдо';
+  modalTitle.textContent = 'Добавить блюдо';
   submitBtn.textContent = 'Добавить';
   document.getElementById('mealType').value = 'breakfast';
   addMealModal.classList.add('show');
@@ -796,7 +829,7 @@ function openAddModal() {
 
 function openEditModal(type, mealKey, idx) {
   editMode = { type, mealKey, idx };
-  modalTitle.textContent = '✏️ Редактировать блюдо';
+  modalTitle.textContent = 'Редактировать блюдо';
   submitBtn.textContent = 'Сохранить';
   let data;
   if (type === 'custom') {
@@ -846,7 +879,7 @@ addMealForm.addEventListener('submit', (e) => {
   } else {
     customMeals[type].push(mealData);
     localStorage.setItem(CUSTOM_MEALS_KEY, JSON.stringify(customMeals));
-    alert('Блюдо "' + name + '" добавлено в раздел "' + (type === 'breakfast' ? 'Завтрак' : type === 'lunch' ? 'Обед' : 'Ужин') + '"!');
+    alert('Блюдо "' + name + '" добавлено!');
   }
   closeModal();
   renderDays();
@@ -860,6 +893,3 @@ updateShopFab();
 </script>
 </body>
 </html>
-
-
-
